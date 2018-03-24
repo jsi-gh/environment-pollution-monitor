@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ESP8266 configuration</title>
+    <link href="/bootstrap.min.css" rel="stylesheet">
+    <link href="/web_configurator.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">ESP8266 configuration</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="page-header">
+            <h1>WiFi settings</h1>
+        </div>
+        <form action='/save/' method='post' enctype='text/plain'>
+            <div>
+                <div class="form-group row">
+                    <div class="selectContainer">
+                        <select class="form-control" name="ssid">
+                            {{SSID_OPTIONS}}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <input type="password" name="pass" class="form-control" placeholder="Password" />
+                </div>
+                <div class="form-group row">
+                    <div class="alert alert-warning" role="alert">
+                        <strong>Warning!</strong> After clicking 'Connect' you will be disconnected from ESP8266 configuration network.
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <input type='submit' class="btn btn-lg btn-success pull-right" value='Connect' />
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

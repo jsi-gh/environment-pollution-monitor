@@ -1,21 +1,43 @@
-﻿#include "LED.h"
+﻿#include <ESP8266WiFi.h>
+#include <FS.h>
+
+#include "LED.h"
+#include "Config.h"
+#include "Settings.h"
+#include "WebConfigurator.h"
 
 LED led;
 
-void setup() {
-    led.blink(50, 50);
-}
+void configure() {
+    led.blink(20, 50);
 
-void loop() {
-    static bool on = true;
-    on = !on;
-
-    if (on) {
+    Serial.println("starting access point");
+    if (WiFi.softAPConfig(LOCAL_IP, GATEWAY_IP, SUBNET_MASK) && WiFi.softAP(SSID, PASS)) {
+        Serial.println("access point started");
+        led.on();
+        WebConfigurator::getInstance().configure();
         led.off();
     }
     else {
-        led.on();
+        Serial.println("failed to start access point");
     }
-
+    
+    Serial.println("shutting down access point");
+    WiFi.enableAP(false);
+    WiFi.disconnect();
     delay(1000);
+
+    led.blink(20, 50);
+}
+
+void setup() {
+    SPIFFS.begin();
+    Serial.begin(9600);
+
+    if (!Config::getInstance().isConfigured()) {
+        configure();
+    }
+}
+
+void loop() {
 }

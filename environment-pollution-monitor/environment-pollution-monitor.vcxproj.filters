@@ -13,17 +13,47 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{ee6d7bb3-2589-4c7e-8e88-64391a64e6d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="environment-pollution-monitor.ino" />
+    <None Include="data\web_configurator_saved.html">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="data\web_configurator.html">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="data\web_configurator.css">
+      <Filter>Data</Filter>
+    </None>
+    <None Include="data\bootstrap.min.css">
+      <Filter>Data</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LED.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WebConfigurator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LED.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WebConfigurator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

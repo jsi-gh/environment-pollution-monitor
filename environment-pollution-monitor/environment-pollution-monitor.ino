@@ -9,7 +9,7 @@
 LED led;
 
 void configure() {
-    led.blink(20, 50);
+    led.blink(5, 100);
 
     Serial.println("starting access point");
     if (WiFi.softAPConfig(LOCAL_IP, GATEWAY_IP, SUBNET_MASK) && WiFi.softAP(SSID, PASS)) {
@@ -27,15 +27,49 @@ void configure() {
     WiFi.disconnect();
     delay(1000);
 
-    led.blink(20, 50);
+    led.blink(5, 100);
+}
+
+bool connect() {
+    Serial.print("connecting to WiFi network " + Config::getInstance().getSsid());
+
+    WiFi.enableSTA(true);
+    WiFi.begin(Config::getInstance().getSsid().c_str(), Config::getInstance().getPass().c_str());
+
+    int count = 10;
+    while (WiFi.status() != WL_CONNECTED && count-- > 0) {
+        led.blink(10, 50);
+        Serial.print(".");
+    }
+
+    if (count == -1) {
+        Serial.println(" failed");
+        WiFi.enableSTA(false);
+        WiFi.disconnect();
+        delay(1000);
+        return false;
+    }
+
+    Serial.println(" done");
+    return true;
 }
 
 void setup() {
     SPIFFS.begin();
     Serial.begin(9600);
 
-    if (!Config::getInstance().isConfigured()) {
-        configure();
+    Config::getInstance().loadConfig();
+    while (true) {
+        if (!Config::getInstance().isConfigured()) {
+            configure();
+        }
+        if (!connect()) {
+            Config::getInstance().clearConfig();
+        }
+        else {
+            Config::getInstance().saveConfig();
+            break;
+        }
     }
 }
 

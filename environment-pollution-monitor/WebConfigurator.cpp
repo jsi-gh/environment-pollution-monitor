@@ -110,9 +110,10 @@ void WebConfigurator::handlePostSave() {
     char ssid[128], pass[128];
     if (sscanf(webServer_.arg("plain").c_str(), "ssid=%s\npass=%s\n", ssid, pass) == 2) {
         Serial.println("WebConfigurator: received new network configuration: ssid=" + String(ssid) + ", pass=" + String(pass));
-        Config::getInstance().setConfig(ssid, pass);
         webServer_.sendHeader("Location", ROOT_URL);
         webServer_.send(302, "text/html");
+        Config::getInstance().setSsid(ssid);
+        Config::getInstance().setPass(pass);
         saved_ = true;
     }
     else {
